@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  front_end:
+    image: php:apache
+    depends_on:
+      - back_end
+    volumes:
+      - ./website:/var/www/html
+    networks:
+      - share
+    ports:
+      - "80:80"
+    environment:
+      - USERNAME=toto
+      - PASSWORD=python
+      - BACKEND_URL=http://back_end:5000//pozos/api/v1.0/get_student_ages
+    
+  back_end:
+    image: simple_api:latest
+    volumes:
+      - database:/data
+    networks:
+      - share
+    ports:
+      - "5000"
+      
+    
+volumes:
+  database:
+
+networks:
+  share:
